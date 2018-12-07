@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SpaceX</string>
+
+    <string name="dialog_error_title">Error</string>
+    <string name="dialog_error_fetching_content">Ops some error occurred, check your internet connection and swipe down to refresh</string>
+    <string name="dialog_error_no_internet_content">You dont have an active internet connection, please turn on your internet and swipe down to refresh</string>
+    <string name="dialog_error_positive_action_close">Close</string>
+
+</resources>

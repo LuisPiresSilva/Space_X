@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/rocketlist_main_container"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             tools:context=".ui.rocketlist.RocketListFragment">
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/rocketlist_active_container"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="8dp">
+
+        <TextView
+                android:id="@+id/rocketlist_active_label"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Active Rockets:"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        <android.support.v7.widget.SwitchCompat
+                android:id="@+id/rocketlist_active_input"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/rocketlist_swiperefresh"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rocketlist_active_container">
+        <!--padding here guarantees that the refresh circle stays completely hidden in case of manual cancellation-->
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rocketlist_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</android.support.constraint.ConstraintLayout>
