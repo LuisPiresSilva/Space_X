@@ -1,5 +1,7 @@
 package exp.kot.spacex.di.component
 
+import android.app.Application
+import dagger.BindsInstance
 import dagger.Component
 import exp.kot.spacex.di.NetworkWrapper
 import exp.kot.spacex.di.modules.network.NetworkModule
@@ -21,4 +23,15 @@ interface NetworkComponent {
     @Named(OkHttpClientModule.WITHOUT_CACHING)
     fun prepareRetrofitNonCaching(): NetworkWrapper
 
+
+//      repeated code but is preferable to writting a new module for context plus hides modules from builder
+//      docs: @BindsInstance methods should be preferred to writing a @Module with constructor arguments
+//      and immediately providing those values.
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        fun applicationContext(applicationContext: Application): Builder
+
+        fun build(): NetworkComponent
+    }
 }

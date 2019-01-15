@@ -69,14 +69,14 @@ class RocketListFragment : Fragment(), RocketListRecyclerViewAdapter.AdapterCall
 
         viewModel.rocketsError.observe(this, Observer { error ->
             rocketlist_swiperefresh.isRefreshing = false
-            if (error != null) {
+
+            error?.let {
                 MaterialDialog.Builder(requireContext())
                     .title(getString(R.string.dialog_error_title))
                     .content(getString(R.string.dialog_error_fetching_content))
                     .positiveText(getString(R.string.dialog_error_positive_action_close))
                     .show()
             }
-
         })
 
         rocketlist_swiperefresh.isRefreshing = true

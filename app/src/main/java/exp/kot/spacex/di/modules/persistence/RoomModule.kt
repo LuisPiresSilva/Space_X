@@ -8,7 +8,6 @@ import dagger.Module
 import dagger.Provides
 import exp.kot.spacex.SpaceXApplication
 import exp.kot.spacex.database.SystemDatabase
-import exp.kot.spacex.di.modules.context.AppModule
 import exp.kot.spacex.model.SystemUser
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -18,7 +17,7 @@ import javax.inject.Singleton
 /**
  * Created by Luis Silva on 06/10/2018.
  */
-@Module(includes = [AppModule::class])
+@Module
 class RoomModule {
 
     //must create a singleton that controls DB open/close states

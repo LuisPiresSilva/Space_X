@@ -31,7 +31,7 @@ class RocketListViewModel : ViewModel() {
                 //in this scenario
                 //if we get valid data we use it in favor of error
                 //instead of view, handling observing status following its lifecycle (add/remove as observer)
-                //(ie view only observe error when it is visible to user (example to show a dialog))
+                //(ie view only observes error when it is visible to user (example to show a dialog))
                 //we send null and thus let view know error does not matter, should not be used
                 //(obviously this must be known in view side)
                 //or it matters to only confirm error states should be hidden (we now have data to show)
@@ -45,6 +45,7 @@ class RocketListViewModel : ViewModel() {
             },
             {
                 rocketsError.value = it
+
             }
         )
     }

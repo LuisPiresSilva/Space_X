@@ -91,9 +91,9 @@ class RocketDetailFragment : Fragment() {
             (viewAdapter as RocketDetailRecyclerViewAdapter).setList(it!!)
         })
 
-        viewModel.rocketLaunchessError.observe(this, Observer {
+        viewModel.rocketLaunchessError.observe(this, Observer { error ->
             rocketdetail_swiperefresh.isRefreshing = false
-            if (it != null) {
+            error?.let {
                 MaterialDialog.Builder(requireContext())
                     .title(getString(R.string.dialog_error_title))
                     .content(getString(R.string.dialog_error_fetching_content))

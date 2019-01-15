@@ -4,7 +4,6 @@ import android.app.Application
 import dagger.Module
 import dagger.Provides
 import exp.kot.spacex.BuildConfig
-import exp.kot.spacex.di.modules.context.AppModule
 import exp.kot.spacex.helpers.hpHasNetwork
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -22,7 +21,7 @@ import javax.inject.Singleton
  * Created by Luis Silva on 05/10/2018.
  */
 
-@Module(includes = [AppModule::class])
+@Module
 class OkHttpClientModule {
 
     companion object {
@@ -51,6 +50,7 @@ class OkHttpClientModule {
             .build()
     }
 
+
     @Provides
     @Singleton
     @Named(WITHOUT_CACHING)
@@ -69,17 +69,28 @@ class OkHttpClientModule {
     private fun addCache(app: Application, chain: Interceptor.Chain): Request {
         var request = chain.request()
 
-        request = if (hpHasNetwork(app))
+        request = if (hpHasNetwork(app)) {
+            /*
+                If there is Internet, get the cache that was stored 1 minute ago.
+                If the cache is older than 1 minute, then discard it, and allow error in fetching the response.
+                The 'max-age' attribute is responsible for this behavior.
+             */
             request.newBuilder().header(
                 "Cache-Control",
                 "public, max-age=" + TimeUnit.MINUTES.toSeconds(1)
             ).build()
-        else
+        } else {
+            /*
+                If there is no Internet, get the cache that was stored 3 days ago.
+                If the cache is older than 3 days, then discard it, and allow error in fetching the response.
+                The 'max-stale' attribute is responsible for this behavior.
+                The 'only-if-cached' attribute indicates to not retrieve new data; fetch the cache only instead.
+            */
             request.newBuilder().header(
                 "Cache-Control",
                 "public, only-if-cached, max-stale=" + TimeUnit.DAYS.toSeconds(3)
             ).build()
-
+        }
         return request
     }
 

@@ -21,8 +21,7 @@ class SpaceXRemoteDataSource {
     private val api: SpaceXAPI
     private val host = "https://api.spacexdata.com"
 
-    private val network: NetworkWrapper =
-        SpaceXApplication.networkComponent().prepareRetrofitNonCaching().buildHost(host)
+    private val network: NetworkWrapper = SpaceXApplication.network().prepareRetrofitNonCaching().buildHost(host)
 
     private var requests: Set<String> = mutableSetOf()
 
@@ -78,7 +77,7 @@ class SpaceXRemoteDataSource {
     }
 
     //request and pass Objects and Error
-    fun getAllRocketLaunches(
+    fun getAllRocketLaunches (
         rocketID: String,
         result: (List<Launch>?) -> Unit,
         error: (Error?) -> Unit,

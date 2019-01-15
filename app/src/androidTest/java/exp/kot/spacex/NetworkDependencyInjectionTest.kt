@@ -3,7 +3,6 @@ package exp.kot.spacex
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import exp.kot.spacex.di.component.DaggerNetworkComponent
-import exp.kot.spacex.di.modules.context.AppModule
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,14 +24,14 @@ class NetworkDependencyInjectionTest {
 
     @Test
     fun globalsInitialisedWithApp() {
-        assertNotNull(SpaceXApplication.networkComponent())
+        assertNotNull(SpaceXApplication.network())
     }
 
     @Test
     fun diExpectedInstances() {
 
         //we add app context
-        val netComp1 = DaggerNetworkComponent.builder().appModule(AppModule(SpaceXApplication.app)).build()
+        val netComp1 = DaggerNetworkComponent.builder().applicationContext(SpaceXApplication.app).build()
         assertNotNull(netComp1)
 
         val injectedResult1_1 = netComp1.prepareRetrofitCaching()

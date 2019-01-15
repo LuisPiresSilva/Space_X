@@ -5,7 +5,6 @@ import exp.kot.spacex.di.component.DaggerDatabaseComponent
 import exp.kot.spacex.di.component.DaggerNetworkComponent
 import exp.kot.spacex.di.component.DatabaseComponent
 import exp.kot.spacex.di.component.NetworkComponent
-import exp.kot.spacex.di.modules.context.AppModule
 import exp.kot.spacex.helpers.Utils
 import timber.log.Timber
 
@@ -18,7 +17,7 @@ class SpaceXApplication : Application() {
 
     companion object {
         lateinit var app: SpaceXApplication
-        fun networkComponent(): NetworkComponent {
+        fun network(): NetworkComponent {
             return app.networkComponent
         }
 
@@ -40,12 +39,12 @@ class SpaceXApplication : Application() {
         Utils(app)
 
         networkComponent = DaggerNetworkComponent.builder()
-            .appModule(AppModule(app))
+            .applicationContext(app)
             .build()
 
 
         databaseComponent = DaggerDatabaseComponent.builder()
-            .appModule(AppModule(app))
+            .applicationContext(app)
             .build()
 
 
